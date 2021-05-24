@@ -54,48 +54,48 @@ while True:
     odleglosc_od_skarbu = math.sqrt((skarb_x - gracz_x) ** 2 + (skarb_y - gracz_y) ** 2)
 
     if szansa_na_podpowiedz != 5:
-        if kierunek == "w" and math.sqrt((skarb_x - gracz_x) ** 2 + (skarb_y - gracz_y) ** 2)\
+        if kierunek == "w" and odleglosc_od_skarbu\
             > math.sqrt((skarb_x - gracz_x) ** 2 +(skarb_y - (gracz_y + 1)) ** 2):
             print("Idziesz w dobrym kierunku")
             gracz_y += 1
             liczba_krokow += 1
-        elif kierunek == "s" and math.sqrt((skarb_x - gracz_x) ** 2 + (skarb_y - gracz_y) ** 2)\
+        elif kierunek == "s" and odleglosc_od_skarbu\
             > math.sqrt((skarb_x - gracz_x) ** 2 +(skarb_y - (gracz_y - 1)) ** 2):
             print("Idziesz w dobrym kierunku")
             gracz_y -= 1
             liczba_krokow += 1
-        elif kierunek == "d" and math.sqrt((skarb_x - gracz_x) ** 2 + (skarb_y - gracz_y) ** 2)\
+        elif kierunek == "d" and odleglosc_od_skarbu\
             > math.sqrt((skarb_x - (gracz_x + 1)) ** 2 +(skarb_y - gracz_y) ** 2):
             print("Idziesz w dobrym kierunku")
             gracz_x += 1
             liczba_krokow += 1
-        elif kierunek == "a" and math.sqrt((skarb_x - gracz_x) ** 2 + (skarb_y - gracz_y) ** 2)\
+        elif kierunek == "a" and odleglosc_od_skarbu\
             > math.sqrt((skarb_x - (gracz_x - 1)) ** 2 +(skarb_y - gracz_y) ** 2):
             print("Idziesz w dobrym kierunku")
             gracz_x -= 1
             liczba_krokow += 1
-        elif kierunek == "w" and math.sqrt((skarb_x - gracz_x) ** 2 + (skarb_y - gracz_y) ** 2)\
+        elif kierunek == "w" and odleglosc_od_skarbu\
             < math.sqrt((skarb_x - gracz_x) ** 2 +(skarb_y - (gracz_y + 1)) ** 2):
             print("Idziesz w złym kierunku")
             gracz_y += 1
             liczba_krokow += 1
-        elif kierunek == "s" and math.sqrt((skarb_x - gracz_x) ** 2 + (skarb_y - gracz_y) ** 2)\
+        elif kierunek == "s" and odleglosc_od_skarbu\
             < math.sqrt((skarb_x - gracz_x) ** 2 +(skarb_y - (gracz_y - 1)) ** 2):
             print("Idziesz w złym kierunku")
             gracz_y -= 1
             liczba_krokow += 1
-        elif kierunek == "d" and math.sqrt((skarb_x - gracz_x) ** 2 + (skarb_y - gracz_y) ** 2)\
+        elif kierunek == "d" and odleglosc_od_skarbu\
             < math.sqrt((skarb_x - (gracz_x + 1)) ** 2 +(skarb_y - gracz_y) ** 2):
             print("Idziesz w złym kierunku")
             gracz_x += 1
             liczba_krokow += 1
-        elif kierunek == "a" and math.sqrt((skarb_x - gracz_x) ** 2 + (skarb_y - gracz_y) ** 2)\
+        elif kierunek == "a" and odleglosc_od_skarbu\
             < math.sqrt((skarb_x - (gracz_x - 1)) ** 2 +(skarb_y - gracz_y) ** 2):
             print("Idziesz w złym kierunku")
             gracz_x -= 1
             liczba_krokow += 1
         else:
-            print("Niepoprawna instrukcja")
+            print("Niepoprawny kierunek")
             continue
 
     else:

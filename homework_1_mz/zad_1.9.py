@@ -8,11 +8,11 @@ a dla liczb podzielnych przez 15 niech wyświetli `FizzBuzz`.
 '''
 
 for liczba in range(1, 101):
-    if liczba % 3 == 0 and not liczba % 5 == 0 and not liczba % 15 == 0:
-        print("Fizz")
-    elif liczba % 5 ==0 and not liczba % 3 == 0 and not liczba % 15 ==0:
-        print("Buzz")
-    elif liczba % 15 == 0:
+    if liczba % 15 == 0:
         print("FizzBuzz")
+    elif liczba % 5 ==0:
+        print("Buzz")
+    elif liczba % 3 == 0:
+        print("Fizz")
     else:
         print(liczba)

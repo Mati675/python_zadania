@@ -3,9 +3,15 @@ Napisz program obliczający średnią
 wartość temperatury w danym tygodniu na podstawie temperatur wprowadzonych przez użytkownika.
 '''
 
-temperatury = (float(input("Podaj temperaturę z poniedziałku: ")), float(input("Podaj temperaturę z wtorku: ")),
-float(input("Podaj temperaturę z srody: ")), float(input("Podaj temperaturę z czwartku: ")),
-float(input("Podaj temperaturę z piątku: ")), float(input("Podaj temperaturę z soboty: ")),
-float(input("Podaj temperaturę z niedzieli: ")))
+temperatury = []
 
-print(sum(temperatury) / len(temperatury))
+for day in range(1, 8):
+    while True:
+        try:
+            temperatura = float(input(f"Podaj temperaturę z {day} dnia tygodnia: "))
+            temperatury.append(temperatura)
+            break
+        except ValueError:
+            print("Złe dane, spróbuj ponownie")
+
+print(f"Średnia temperatura w ciągu tygodnia wynosi: {sum(temperatury) / len(temperatury)}")
