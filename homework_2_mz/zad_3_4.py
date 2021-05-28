@@ -11,7 +11,7 @@ Przykład użycia:
 [4, 5, 6]
 '''
 
-def przytnij(lista: list, start, stop)-> list:
+def przytnij(lista: list, start=lambda x: x == 2, stop=lambda x: x == 5)-> list:
     """
     funkcja przycina listę na podstawie podanych warunków początkowego
     i końcowego
