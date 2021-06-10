@@ -23,117 +23,105 @@ Użyj tej klasy do zrobienia gry w kółko i krzyżyk.
 '''
 
 class PlanszaXO:
-    ZWYCIESTWO_KRZYZYKOW = False
-    ZWYCIESTWO_KOLEK = False
-    GRA_TRWA = True
-    KRZYZYKI = []
-    KOLKA = []
+    def __init__(self):
+        self.stan_planszy = [
+            [None, None, None],
+            [None, None, None],
+            [None, None, None]
+        ]
 
     def dodaj_element(self, x: int, y: int, rodzaj_elementu: str):
         """
-        definiuj,e funkcję dodania elementy na planszę, planszą jest zmienna zajete pola
+        funkcja umieszcza okreslony element na konkretnych indeksach w stanie planszy
+        :param x:
         :param y:
         :param rodzaj_elementu:
         :return:
         """
-        zajete_pola = []
-        krzyzyki = []
-        kolka = []
-
         if rodzaj_elementu.lower() not in "x, o":
             return False
-        elif (x, y) in zajete_pola or 1 < x < 3 or 1 < y < 3:
+        elif not 0 <= x <= 2 or not 0 <= y <= 2:
             return False
-
-        elif rodzaj_elementu.lower() == "x":
-            zajete_pola.append((x, y))
-            krzyzyki.append((x, y))
-            print(f"zajęte pola = {zajete_pola}")
-            print(f"krzyżyki = {krzyzyki}")
-        elif rodzaj_elementu.lower() == "o":
-            zajete_pola.append((x, y))
-            kolka.append((x, y))
-            print(f"zajęte pola = {zajete_pola}")
-            print(f"kółka = {kolka}")
-
-        if (1, 1) in krzyzyki and (1, 2) in krzyzyki and (1, 3) in krzyzyki:
-            PlanszaXO.ZWYCIESTWO_KRZYZYKOW = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 1) in krzyzyki and (2, 1) in krzyzyki and (3, 1) in krzyzyki:
-            PlanszaXO.ZWYCIESTWO_KRZYZYKOW = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 1) in krzyzyki and (2, 2) in krzyzyki and (3, 3) in krzyzyki:
-            PlanszaXO.ZWYCIESTWO_KRZYZYKOW = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 2) in krzyzyki and (2, 2) in krzyzyki and (3, 2) in krzyzyki:
-            PlanszaXO.ZWYCIESTWO_KRZYZYKOW = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 3) in krzyzyki and (2, 3) in krzyzyki and (3, 3) in krzyzyki:
-            PlanszaXO.ZWYCIESTWO_KRZYZYKOW = True
-            PlanszaXO.GRA_TRWA = False
-        elif (2, 1) in krzyzyki and (2, 2) in krzyzyki and (2, 3) in krzyzyki:
-            PlanszaXO.ZWYCIESTWO_KRZYZYKOW = True
-            PlanszaXO.GRA_TRWA = False
-        elif (3, 1) in krzyzyki and (3, 2) in krzyzyki and (3, 3) in krzyzyki:
-            PlanszaXO.ZWYCIESTWO_KRZYZYKOW = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 3) in krzyzyki and (2, 2) in krzyzyki and (3, 1) in krzyzyki:
-            PlanszaXO.ZWYCIESTWO_KRZYZYKOW = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 1) in kolka and (1, 2) in kolka and (1, 3) in kolka:
-            PlanszaXO.ZWYCIESTWO_KOLEK = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 1) in kolka and (2, 1) in kolka and (3, 1) in kolka:
-            PlanszaXO.ZWYCIESTWO_KOLEK = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 1) in kolka and (2, 2) in kolka and (3, 3) in kolka:
-            PlanszaXO.ZWYCIESTWO_KOLEK = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 2) in kolka and (2, 2) in kolka and (3, 2) in kolka:
-            PlanszaXO.ZWYCIESTWO_KOLEK = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 3) in kolka and (2, 3) in kolka and (3, 3) in kolka:
-            PlanszaXO.ZWYCIESTWO_KOLEK = True
-            PlanszaXO.GRA_TRWA = False
-        elif (2, 1) in kolka and (2, 2) in kolka and (2, 3) in kolka:
-            PlanszaXO.ZWYCIESTWO_KOLEK = True
-            PlanszaXO.GRA_TRWA = False
-        elif (3, 1) in kolka and (3, 2) in kolka and (3, 3) in kolka:
-            PlanszaXO.ZWYCIESTWO_KOLEK = True
-            PlanszaXO.GRA_TRWA = False
-        elif (1, 3) in kolka and (2, 2) in kolka and (3, 1) in kolka:
-            PlanszaXO.ZWYCIESTWO_KOLEK = True
-            PlanszaXO.GRA_TRWA = False
-
-        PlanszaXO.KRZYZYKI = krzyzyki
-        PlanszaXO.KOLKA = kolka
-
+        elif self.stan_planszy[y][x] is not None:
+            return False
+        elif self.stan_gry() != 0:
+            return False
+        else:
+            self.stan_planszy[y][x] = rodzaj_elementu
 
     def stan_gry(self):
-        if PlanszaXO.ZWYCIESTWO_KOLEK == True:
-            return 1
-        elif PlanszaXO.ZWYCIESTWO_KRZYZYKOW == True:
-            return -1
+        x_wygralo = 1
+        o_wygralo = -1
+        gra_trwa = 0
+
+        if self.stan_planszy[0] == ["x", "x", "x"] or\
+        self.stan_planszy[1] == ["x", "x", "x"] or \
+        self.stan_planszy[2] == ["x", "x", "x"] or \
+        (self.stan_planszy[0][0] == "x" and self.stan_planszy[1][0] == "x" \
+        and self.stan_planszy[2][0] == "x") or \
+        (self.stan_planszy[0][1] == "x" and self.stan_planszy[1][1] == "x" \
+        and self.stan_planszy[2][1] == "x") or \
+        (self.stan_planszy[0][2] == "x" and self.stan_planszy[1][2] == "x" \
+        and self.stan_planszy[2][2] == "x") or \
+        (self.stan_planszy[0][0] == "x" and self.stan_planszy[1][1] == "x" \
+        and self.stan_planszy[2][2] == "x") or \
+        (self.stan_planszy[0][2] == "x" and self.stan_planszy[1][1] == "x" \
+        and self.stan_planszy[2][0] == "x"):
+            return x_wygralo
+
+        elif self.stan_planszy[0] == ["o", "o", "o"] or\
+        self.stan_planszy[1] == ["o", "o", "o"] or \
+        self.stan_planszy[2] == ["o", "o", "o"] or \
+        (self.stan_planszy[0][0] == "o" and self.stan_planszy[1][0] == "o" \
+        and self.stan_planszy[2][0] == "o") or \
+        (self.stan_planszy[0][1] == "o" and self.stan_planszy[1][1] == "o" \
+        and self.stan_planszy[2][1] == "o") or \
+        (self.stan_planszy[0][2] == "o" and self.stan_planszy[1][2] == "o" \
+        and self.stan_planszy[2][2] == "o") or \
+        (self.stan_planszy[0][0] == "o" and self.stan_planszy[1][1] == "o" \
+        and self.stan_planszy[2][2] == "o") or \
+        (self.stan_planszy[0][2] == "o" and self.stan_planszy[1][1] == "o" \
+        and self.stan_planszy[2][0] == "o"):
+            return o_wygralo
         else:
-            return 0
+            return gra_trwa
 
 
-    def czyj_ruch(self):
-        if len(PlanszaXO.KRZYZYKI) < len(PlanszaXO.KOLKA):
-            print("Ruch krzyżyków")
+    def __str__(self):
+        if self.stan_planszy.count("o") >= self.stan_planszy.count("x"):
+            return ("Ruch krzyżyków")
         else:
-            print("Ruch kółek")
+            return ("Ruch kółek")
 
 
-plansza = PlanszaXO()
 
-plansza.czyj_ruch()
-plansza.dodaj_element(1, 1, "o")
-plansza.dodaj_element(2, 1, "x")
-plansza.dodaj_element(1, 2, "o")
-plansza.dodaj_element(2, 3, "x")
-plansza.dodaj_element(1, 3, "o")
-print(plansza.stan_gry())
+
+def test_plansza_1():
+    plansza = PlanszaXO()
+    plansza.dodaj_element(1, 1, "x")
+    plansza.dodaj_element(2, 1, "o")
+    plansza.dodaj_element(1, 2, "x")
+    plansza.dodaj_element(2, 3, "o")
+    assert plansza.__str__() == "Ruch krzyżyków"
+    assert plansza.stan_gry() == 0
+
+
+def test_plansza_2():
+    plansza = PlanszaXO()
+    assert plansza.dodaj_element(1, 5, "x") == False
+    assert plansza.dodaj_element(1, 2, "r") == False
+
+
+def test_plansza_3():
+    plansza = PlanszaXO()
+    plansza.dodaj_element(0, 0, "x")
+    plansza.dodaj_element(1, 2, "o")
+    plansza.dodaj_element(0, 1, "x")
+    plansza.dodaj_element(2, 3, "o")
+    plansza.dodaj_element(0, 2, "x")
+    assert plansza.stan_planszy == [['x', None, None], ['x', None, None], ['x', 'o', None]]
+    assert plansza.stan_gry() == 1
+
 
 
 

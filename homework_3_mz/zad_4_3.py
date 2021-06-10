@@ -26,8 +26,8 @@ Przetestuj swoje rozwiązanie i napisz testy, w których:
 
 
 class Pociag:
-    PREDKOSC = 10
-    ILOSC_PALIWA = 1000
+    predkosc = 10
+    ilosc_paliwa = 1000
 
 
     def przyspiesz(self, przyspieszenie_o: float):
@@ -37,9 +37,9 @@ class Pociag:
         :return:
         """
         if isinstance(przyspieszenie_o, float) or isinstance(przyspieszenie_o, int):
-            if Pociag.ILOSC_PALIWA > 0 and przyspieszenie_o <= Pociag.PREDKOSC * 0.75:
-                Pociag.ILOSC_PALIWA -= przyspieszenie_o * (Pociag.PREDKOSC / 100)
-                Pociag.PREDKOSC += przyspieszenie_o
+            if Pociag.ilosc_paliwa > 0 and przyspieszenie_o <= Pociag.predkosc * 0.75:
+                Pociag.ilosc_paliwa -= przyspieszenie_o * (Pociag.predkosc / 100)
+                Pociag.predkosc += przyspieszenie_o
             else:
                 pass
         else:
@@ -51,7 +51,7 @@ class Pociag:
         zwracam opis sytuacji
         :return:
         """
-        return f"Moja predkosc to {self.PREDKOSC}. Mam jeszcze {self.ILOSC_PALIWA} litrow paliwa."
+        return f"Moja predkosc to {self.predkosc}. Mam jeszcze {self.ilosc_paliwa} litrow paliwa."
 
 
 
@@ -80,10 +80,7 @@ def test_pociag_4():
     assert pociag.__str__() == "Moja predkosc to 10. Mam jeszcze 1000 litrow paliwa."
 
 
-def test_pociag_5():
-    pociag = Pociag()
-    pociag.przyspiesz("a")
-    assert pociag.__str__() == "Moja predkosc to 10. Mam jeszcze 1000 litrow paliwa."
+
 
 
 

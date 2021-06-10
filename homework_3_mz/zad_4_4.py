@@ -57,14 +57,14 @@ class Zbiornik:
         self.ilosc_wody = 0
         self.temperatura = 0
 
-    def dolej(self, ile: float, t: float):
+    def dolej(self, ile: float, temp: float):
         """
         defniuję jak zachowa się woda w zbiorniku po dolaniu, z uwzględnieniem temperatury
         :param ile:
-        :param t:
+        :param temp:
         :return:
         """
-        self.temperatura = ((self.temperatura * self.ilosc_wody) + (ile * t)) / (ile + self.ilosc_wody)
+        self.temperatura = ((self.temperatura * self.ilosc_wody) + (ile * temp)) / (ile + self.ilosc_wody)
         self.ilosc_wody += ile
 
 
